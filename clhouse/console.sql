@@ -1,16 +1,13 @@
-create table default.district (
+create database st_course1;
+
+create table st_course1.district (
     OrderID String,
     DeliveryDistrictName String
 ) ENGINE=Log;
 
 SET format_csv_delimiter = ';';
 
-insert into default.district
-select * from file('district.csv', CSVWithNames,
-                   'OrderID String, DeliveryDistrictName String')
-;
-
-create table default.orders (
+create table st_course1.orders (
     OrderID String,
     OrderDate String,
     ProductName String,
@@ -29,15 +26,11 @@ create table default.orders (
 
 SET format_csv_delimiter = ';';
 
-insert into default.orders
-select * from file('orders.csv', CSVWithNames,
-              'OrderID String, OrderDate String, ProductName String, ProductBrand String, ' ||
-              'ProductSubcategory String, ProductCategory String, DeliveryType String, ' ||
-              'PaymentType String, ClientGender String, Sales Int32, ClientStatus String, ' ||
-              'ShopName String, ShopAddress String, ShopAddressCoord String');
+select * from st_course1.district;
+select * from st_course1.orders;
 
-select * from default.district;
-select * from default.orders;
+-- clickhouse-client --format_csv_delimiter ";" -q "INSERT INTO st_course1.district FORMAT CSVWithNames" < district_conv.csv
+-- clickhouse-client --format_csv_delimiter ";" -q "INSERT INTO st_course1.orders FORMAT CSVWithNames" < orders_conv.csv
 
 create database dns_data;
 
