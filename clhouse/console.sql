@@ -164,8 +164,6 @@ select * from orders_new;
 
 select * from system.parts where active=1 and table='orders_new';
 
-use dns_data;
-
 select table from system.tables;
 
 SET enable_reads_from_query_cache = 0;
@@ -174,5 +172,9 @@ select * from system.query_log;
 
 alter table system.query_log delete where 1;
 
-
 select * from orders_new;
+
+use dns_data;
+
+select uuid, name from cities;
+
